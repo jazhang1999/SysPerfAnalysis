@@ -17,6 +17,6 @@ Obtaining the data is for the most part complete, with a couple of quality of li
 Process:
 * The user will run the program getData.py
 * There should also be a preexisting directory called dataFiles, where all the output dumps to
-* One .json file and one .txt file (see above for more details) will be set into the dataFiles directory each interval in a given amount of time 
+* A .json file and .txt file (see above for more details) will be set into the dataFiles directory each interval in a given amount of time 
 * Once the program ends, dataFiles should contain all the data that is needed to process for that sampling period
 
