@@ -20,10 +20,10 @@ from subprocess import check_output
 
 dirname = "./dataFiles/" + sys.argv[1]
 if not os.path.exists(dirname):
-	os.mkdir(dirname)
+        os.mkdir(dirname)
 else:
-	print("Directory name already exists, pick a new one please")
-	sys.exit(1)
+        print("Directory name already exists, pick a new one please")
+        sys.exit(1)
 
 # Server where data on hardware is transferred to
 URL = "http://192.168.1.18:8085/data.json"
@@ -32,20 +32,20 @@ URL = "http://192.168.1.18:8085/data.json"
 # Sets the total time of reading to be 6 minutes (10 times 60 seconds)
 t_end = time.time() + 60 * 10
 while time.time() < t_end: 
-	timeStamp = time.strftime('%Y-%m-%d-%H:%M:%S')
+        timeStamp = time.strftime('%Y-%m-%d-%H:%M:%S')
         
         # Stores data from the above url in a .json format
         r = requests.get(url = URL)
         data = r.json()
-	with open(dirname + "/" + timeStamp + '.json', 'w') as f:
-    		json.dump(data, f)
+        with open(dirname + "/" + timeStamp + '.json', 'w') as f:
+                json.dump(data, f)
 
         # Collect top 20 processes by CPU usage
-	with open(dirname + "/" + timeStamp + '.txt', 'w') as f:
-		p = check_output(["powershell.exe", "ps | sort -desc cpu | select -first 20; exit"]).decode("utf-8")
-		f.write(p)
-		g = check_output(["powershell.exe", "exit"])
-	pp("Collected a data file")
-	time.sleep(10)
+        with open(dirname + "/" + timeStamp + '.txt', 'w') as f:
+                p = check_output(["powershell.exe", "ps | sort -desc cpu | select -first 20; exit"]).decode("utf-8")
+                f.write(p)
+                g = check_output(["powershell.exe", "exit"])
+        pp("Collected a data file")
+        time.sleep(10)
 
 

@@ -14,10 +14,10 @@ import pdb
 
 def parseHardwareInfo(mylist, nameOfFile):
         path = "./dataFiles/" + sys.argv[2] + "/" + nameOfFile + ".json"
-        print(">>> Opening file (%s)" % (path))
+        #print(">>> Opening file (%s)" % (path))
         with open(path, 'r') as json_file:
                 data = json.load(json_file)
-                pdb.set_trace()
+                #pdb.set_trace()
 
                 Core1 = data['Children'][0]['Children'][1]['Children'][0]['Children'][0]['Value'].split()[0]
                 Core2 = data['Children'][0]['Children'][1]['Children'][0]['Children'][1]['Value'].split()[0]
