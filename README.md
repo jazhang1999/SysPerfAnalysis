@@ -66,7 +66,7 @@ Obtaining the data is for the most part complete, with a couple of quality of li
 * For more information on the process, please read comments within getData.py
 
 Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
-------------------------------------------------------------------------
+|---|---|---|---|---|
 2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
 
 Notes
