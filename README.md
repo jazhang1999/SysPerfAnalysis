@@ -132,7 +132,7 @@ with open(path, 'w') as csvfile:
 
 * _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. 
 * You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems
-* Alternatively, this link [here] (https://www.pyimagesearch.com/2015/08/24/resolved-matplotlib-figures-not-showing-up-or-displaying/) will show you how to change certain things in Ubuntu to make it work. 
+* Alternatively, this link [here]:https://www.pyimagesearch.com/2015/08/24/resolved-matplotlib-figures-not-showing-up-or-displaying/ will show you how to change certain things in Ubuntu to make it work. 
 
 * To gain privileges to run Powershell commands from Linux vm: `Set-ExecutionPolicy RemoteSigned` (You might have to do this if this is your first time running the code. Run PowerShell x86 as administrator in order to execute this)
 * The command line `ps | sort -desc cpu | select -first 20` is the code I used to access the top 20 processes on my computer. This can be modified, although be careful as this is not really a part of the rest of the Python code
