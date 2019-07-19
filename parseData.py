@@ -1,6 +1,13 @@
 """
 ===============================================================================
-User input required as of now
+Program to parse information from pre-collected data and store in a csv file
+- sys.argv[1] = name of the csv file to be created
+- sys.argv[2] = name of the subdirectory where the program will collect data 
+- The .csv will have 4 categories:
+    - row[0] = time
+    - row[1] = average core usage
+    - row[2] = RAM usage
+    - row[3] = GPU Temperature
 ===============================================================================
 """
 # Import necessary libraries
@@ -11,32 +18,18 @@ import json
 import pdb
 
 # Section to parse data and collect ===========================================
-
+# Pulls data from the .json file (Open Hardware Monitor information)
 def parseHardwareInfo(mylist, nameOfFile):
         path = "./dataFiles/" + sys.argv[2] + "/" + nameOfFile + ".json"
-        #print(">>> Opening file (%s)" % (path))
         with open(path, 'r') as json_file:
                 data = json.load(json_file)
-                #pdb.set_trace()
-
-                Core1 = data['Children'][0]['Children'][1]['Children'][0]['Children'][0]['Value'].split()[0]
-                Core2 = data['Children'][0]['Children'][1]['Children'][0]['Children'][1]['Value'].split()[0]
-                Core3 = data['Children'][0]['Children'][1]['Children'][0]['Children'][2]['Value'].split()[0]
-                Core4 = data['Children'][0]['Children'][1]['Children'][0]['Children'][3]['Value'].split()[0]
-                Core5 = data['Children'][0]['Children'][1]['Children'][0]['Children'][4]['Value'].split()[0]
-                Core6 = data['Children'][0]['Children'][1]['Children'][0]['Children'][5]['Value'].split()[0]
-
-                CoreAVG = (float(Core1) + float(Core2) + float(Core3) + float(Core4) + float(Core5) + float(Core6)) / 6
+                # I pulled the average core usage, RAM usage, and GPU Temperature, in that order
+                CoreAVG = float(data['Children'][0]['Children'][1]['Children'][0]['Children'][0]['Value'].split()[0])
                 mylist.append(CoreAVG)
                 ramMem = float(data['Children'][0]['Children'][2]['Children'][0]['Children'][0]['Value'].split()[0])
                 mylist.append(ramMem)
                 gpuTemp = float(data['Children'][0]['Children'][3]['Children'][1]['Children'][0]['Value'].split()[0])
                 mylist.append(gpuTemp)
-
-        # print(mylist)
-        #print("The CPU core average load is " + str(CoreAVG) + " %")
-        #print("The approximate RAM memmory usage is " + str(ramMem) + "%")
-        #print("The approximate GPU temperature is " + str(gpuTemp) + " degrees Celsius")
 
 def parseProcessInfo(mylist, nameOfFile):
         f = open("./dataFiles/" + sys.argv[2] + "/" + nameOfFile + ".txt", "r")
@@ -44,8 +37,6 @@ def parseProcessInfo(mylist, nameOfFile):
         topProcessLine = rawText.split("\n")[3].split()
         topProcess = topProcessLine[len(topProcessLine) - 1]
         mylist.append(topProcess)
-
-
 
 # Specify the path for the new CSV file
 path = "./results/" + sys.argv[1] + ".csv"
@@ -56,7 +47,10 @@ directory = os.fsencode("./dataFiles/" + sys.argv[2])
 # Create the CSV file that will be stored (Chosen name)
 with open(path, 'w') as csvfile:
         filewriter = csv.writer(csvfile)
+        # Write the first row to be the headers for each column in the .csv
+        filewriter = csv.writer(csvfile)
         filewriter.writerow(['Time','CPU Core Usage', 'RAM Used Memmory', 'GPU Temperature', 'Top Running Process'])
+        # Now we can loop through the rest of the data and input it into the .csv
         for fn in os.listdir(directory):
                 filename = os.fsdecode(fn)
                 if filename.endswith(".json"):

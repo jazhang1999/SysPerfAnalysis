@@ -8,7 +8,7 @@ Pulls out two different types of samples:
   pulled every 10 seconds (User will be prompted to do so at available time
 - All the data will be dumped into a subdirectory under ./dataFiles for ease
   of parsing in the future. The user will choose the subdirectory name
-
+- Sys.argv[1] = Name of the new subdirectory that all the data will go into
 All these are pulled periodically, maybe plans to specify frequency and total
 time in the future
 ===============================================================================

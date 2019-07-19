@@ -1,7 +1,7 @@
 """
 ===============================================================================
 Graph the data in a legible way - specify which you want to see over time
-- The x axis will display time (in minutes) and the top running process at 
+- The x axis will display time (in minutes) a:wnd the top running process at 
   the given time in question
 - For now, data points are hardlocked to include only every 10 second readings,
   with the full minutes being displayed on the x axis
@@ -34,7 +34,7 @@ pickedOption = int(input('Enter the number of the option you want to run: '))
 
 # Begins parsing in the data from the required csv fields in order to 
 myTime = 0
-with open( sys.argv[1], 'r') as csvfile:
+with open('./results/' + sys.argv[1], 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     next(plots)
     
@@ -63,5 +63,7 @@ else:
 plt.yscale('linear')
 plt.title('Graph: ' + readings[pickedOption - 1] + ' over time (min)')
 plt.legend(['Progression'], loc='upper left')
-plt.show()
+
+plt.tight_layout()
+plt.savefig('/mnt/c/Users/Toby/Desktop/Graphs/' + sys.argv[1].split('.')[0] + readings[pickedOption - 1] + '.png')
 
