@@ -59,15 +59,16 @@ Step two requires that we parse the data and put it into a .csv file to make it 
 * From there, I specified the first row of the .csv file to be the column names 
 * Then, I just iterated through all the .json files, and called the .txt files by splicing out the timestamp of a .json's name and adding '.txt' to access its corresponding .txt file
 * By the end, the resulting data would look something like this:
+Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
+|---|---|---|---|---|
+2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
+
 # Update (7/14/2019)
 Obtaining the data is for the most part complete, with a couple of quality of life changes to come
 * Hardware statistics - taken in as raw .json files in consistent intervals over a set amount of time
 * Top running processes - taken in as raw .txt files during the same time as the hardware statistics
 * For more information on the process, please read comments within getData.py
 
-Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
-|---|---|---|---|---|
-2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
 
 Notes
 * I originally began this process of collection with psutil, a python library used for retrieving hardware data from the computer. This was eventually abandoned due to the fact that many of the modules I wanted to use were unavailable for my computer (limited linux and no Windows support being one of the bigger reasons why this was scrapped)
