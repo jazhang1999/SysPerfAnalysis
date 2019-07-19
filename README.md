@@ -130,8 +130,7 @@ with open(path, 'w') as csvfile:
 * This code was originally made to run off of my desktop (gaming) computer. If you would like to run this for yourself, then you will have to change the IP address where applicable
 * For ease of testing and parsing, I made specific folders /dataFiles/ and /results/ to stash subdirectories of the pulled data in the former and the .csv files with the processed data in the latter. They are available for import but can be changed at the user's leisure
 
-* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. 
-* You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems
+* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
 * Alternatively, this link [https://www.pyimagesearch.com/2015/08/24/resolved-matplotlib-figures-not-showing-up-or-displaying/] will show you how to change certain things in Ubuntu to make it work. I did not do it because I'm new to linux as a whole, but for more experienced people this will work for them
 
 * To gain privileges to run Powershell commands from Linux vm: `Set-ExecutionPolicy RemoteSigned` (You might have to do this if this is your first time running the code. Run PowerShell x86 as administrator in order to execute this)
