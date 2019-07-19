@@ -10,11 +10,12 @@ We will require three steps to make this idea cohesive:
 Each one of these steps is a lot, but these are the main things to accomplish in order to make this process work. This will, as of now, also be done on a Windows 10 computer using the Ubuntu 18.04 virtual machine 
 
 # Step One - getData.py 
-Step one requires that we get the data. To do this required a two-pronged approach 
+Step one requires that we get the data. To do this required a two-pronged approach
+* The user will first have to specify the name for where all the data will be saved. For example: `python3 getData.py sample1` will tell the program to save all the scraped data into a subdirectory within ./dataFiles/ into a subdirectory called sample1
 * We first obtained hardware data from Open Software Monitor by making it transmit to a private web server, then scraping the data off said web server in the form of a .json file (containing all the data on there)
 * To get top processes running (measured by CPU usage), I first wrote and tested out a PowerShell script that would be able to retrieve the top 20 processes running on the PC at the time. I then incorporated this into my python code to save the resulting output of that command into a .txt file
 * Since one data pull gets both of the above at pretty much the exact same time, I simply named the resulting .json file and the .txt file with the timestamp when the reading took place (predetermined)
-* For more individual documentation on specific lines of code, please see the original getData.py
+* For more individual documentation on specific lines of code, please see below:
 
 ```
 # Import necessary libraries
@@ -60,6 +61,7 @@ while time.time() < t_end:
 ```
 # Step 2 - parseData.py
 Step two requires that we parse the data and put it into a .csv file to make it graphable (viewable)
+* The user will first have to specify the name of the .csv file to be created, and then the directory where the data is stored. For example, the call `python3 parseData.py table1 sample1` will tell the program to make a .csv file named table1 to pull data from the directory sample1
 * First I had to make the .csv file. I put mine into a folder called /results/ just for organization
 * Next, I specified, then opened, the directory where all my data was (the .json from Open Hardware Monitor and the .txt from the PowerShell command)
 * From there, I specified the first row of the .csv file to be the column names 
