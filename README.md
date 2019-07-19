@@ -59,6 +59,7 @@ Step two requires that we parse the data and put it into a .csv file to make it 
 * From there, I specified the first row of the .csv file to be the column names 
 * Then, I just iterated through all the .json files, and called the .txt files by splicing out the timestamp of a .json's name and adding '.txt' to access its corresponding .txt file
 * By the end, the resulting data would look something like this:
+
 Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
 |---|---|---|---|---|
 2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
