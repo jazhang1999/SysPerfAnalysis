@@ -18,69 +18,19 @@ Step one requires that we get the PC performance data, which contains two parts:
 
 # Step 2 - parseData.py
 Step two requires that we parse the data and put it into a .csv file to make it graphable (viewable)
-* The user will first have to specify the name of the .csv file to be created, and then the directory where the data is stored. For example, the call `python3 parseData.py table1 sample1` will tell the program to make a .csv file named table1 to pull data from the directory sample1
-* First I had to make the .csv file. I put mine into a folder called /results/ just for organization
-* Next, I specified, then opened, the directory where all my data was (the .json from Open Hardware Monitor and the .txt from the PowerShell command)
-* From there, I specified the first row of the .csv file to be the column names 
-* Then, I just iterated through all the .json files, and called the .txt files by splicing out the timestamp of a .json's name and adding '.txt' to access its corresponding .txt file
-* By the end, the resulting data would look something like this:
+* The user will first have to specify the name of the .csv file to be created, and then the directory where the data is stored. For example, the call `python3 parseData.py table1 sample1` will tell the program to make a .csv file named table1 to pull data from the directory sample1.
 
+* The program must iterate through all files within the above mentioned subdirectory. 
+* In order to obtain CPU Core Usage, RAM Used Memmory, GPU Temperature, the program accesses each .json files collected in Step 1 and go through the JSON heirarchy to obtain the elements needed.
+* In order to obtain the Top Process, the program accesses the corresponding .txt file (with the top processes) and parses out the name of the top running process.
+* All the parsed results (.csv files) will be put into a separate subdirectory `./results/`
+* The first row of the .csv file was to be the column names
+
+* By the end, the resulting data would look something like this:
 Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
 |---|---|---|---|---|
 2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
 
-```
-# Import necessary libraries
-import csv
-import sys
-import os
-import json
-import pdb
-
-# Section to parse data and collect ===========================================
-# Pulls data from the .json file (Open Hardware Monitor information)
-def parseHardwareInfo(mylist, nameOfFile):
-        path = "./dataFiles/" + sys.argv[2] + "/" + nameOfFile + ".json"
-        with open(path, 'r') as json_file:
-                data = json.load(json_file)
-                # I pulled the average core usage, RAM usage, and GPU Temperature, in that order
-                CoreAVG = float(data['Children'][0]['Children'][1]['Children'][0]['Children'][0]['Value'].split()[0])
-                mylist.append(CoreAVG)
-                ramMem = float(data['Children'][0]['Children'][2]['Children'][0]['Children'][0]['Value'].split()[0])
-                mylist.append(ramMem)
-                gpuTemp = float(data['Children'][0]['Children'][3]['Children'][1]['Children'][0]['Value'].split()[0])
-                mylist.append(gpuTemp)
-
-def parseProcessInfo(mylist, nameOfFile):
-        f = open("./dataFiles/" + sys.argv[2] + "/" + nameOfFile + ".txt", "r")
-        rawText = f.read()
-        topProcessLine = rawText.split("\n")[3].split()
-        topProcess = topProcessLine[len(topProcessLine) - 1]
-        mylist.append(topProcess)
-
-# Specify the path for the new CSV file
-path = "./results/" + sys.argv[1] + ".csv"
-
-# Specify where the data for processing is
-directory = os.fsencode("./dataFiles/" + sys.argv[2])
-
-# Create the CSV file that will be stored (Chosen name)
-with open(path, 'w') as csvfile:
-        filewriter = csv.writer(csvfile)
-        # Write the first row to be the headers for each column in the .csv
-        filewriter = csv.writer(csvfile)
-        filewriter.writerow(['Time','CPU Core Usage', 'RAM Used Memmory', 'GPU Temperature', 'Top Running Process'])
-        # Now we can loop through the rest of the data and input it into the .csv
-        for fn in os.listdir(directory):
-                filename = os.fsdecode(fn)
-                if filename.endswith(".json"):
-                        timeStamp = filename.split(".")[0]
-                        newRow = []
-                        newRow.append(timeStamp)
-                        #pdb.set_trace()
-                        parseHardwareInfo(newRow, timeStamp)
-                        #pdb.set_trace()
-```
 
 # Notes
 * I originally began this process of collection with psutil, a python library used for retrieving hardware data from the computer. This was eventually abandoned due to the fact that many of the modules I wanted to use were unavailable for my computer (limited linux and no Windows support being one of the bigger reasons why this was scrapped)
