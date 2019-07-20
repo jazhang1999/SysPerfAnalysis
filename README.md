@@ -50,8 +50,8 @@ Enter the number of the option you want to run:
  
 * The new graph will be made into a .png, which will be named after the .csv file it was taken from and the option selected. For example, if the the graph was created with data from table1.csv and the user wanted to see the GPU Temperature, the resulting name would be `table1GPUTemperature.png`. The graph was first resized to fit the .png format, and then was saved to Windows Desktop for ease of viewing. If just the name is inputted, the resulting .png will show up in the current directory. 
 
-The resizing command (to make the graph fit) is `plt.tight_layout()`
-The command I used to put it on my Windows Desktop is `plt.savefig('/mnt/c/Users/Toby/Desktop/Graphs/' + sys.argv[1].split('.')[0] + readings[pickedOption - 1] + '.png')`
+* The resizing command (to make the graph fit) is `plt.tight_layout()`
+* The command I used to put it on my Windows Desktop is `plt.savefig('/mnt/c/Users/Toby/Desktop/Graphs/' + sys.argv[1].split('.')[0] + readings[pickedOption - 1] + '.png')`
 
 * _Originally, the program was designed to show the graph as a popup using the command plotmatlib.show(). However, due to limitations from using a WSL, this command does not work._ This will work, however, on a pure Windows system or MacOS, but for ease of use, the above process was chosen instead
 
