@@ -1,5 +1,5 @@
 # SysPerfAnalysis
-Python Program that analyzes CPU usage, temperature, and the top-running processes at any given time on the computer
+Python Program that analyzes CPU usage, temperature, and the top-running processes at any given time on the computer.
 
 # Three Step Process
 We will require three steps to make this idea cohesive:
@@ -7,58 +7,15 @@ We will require three steps to make this idea cohesive:
 * Record the data (write into either a .json or .csv file)
 * Perform data analysis of system performance (Visual representation, another python package)
 
-Each one of these steps is a lot, but these are the main things to accomplish in order to make this process work. This will, as of now, also be done on a Windows 10 computer using the Ubuntu 18.04 virtual machine 
+Each one of these steps is a lot, but these are the main things to accomplish in order to make this process work. This will, as of now, also be done on a Windows 10 computer using the Ubuntu 18.04 virtual machine. 
 
 # Step One - getData.py 
-Step one requires that we get the data. To do this required a two-pronged approach
+Step one requires that we get the PC performance data, which contains two parts: the hardware statistics, and the top running processes on the system.
 * The user will first have to specify the name for where all the data will be saved. For example: `python3 getData.py sample1` will tell the program to save all the scraped data into a subdirectory within ./dataFiles/ into a subdirectory called sample1
-* We first obtained hardware data from Open Software Monitor by making it transmit to a private web server, then scraping the data off said web server in the form of a .json file (containing all the data on there)
+* We first obtained hardware data from Open Hardware Monitor ([https://openhardwaremonitor.org/]). This software will run on the computer I wanted to test, and makes the hardware statistics available through a rest API. For my computer, the statistics are exposed at `http://192.168.1.18:8085/data.json`. The code periodically does HTTP GET and stores the .json file.
 * To get top processes running (measured by CPU usage), I first wrote and tested out a PowerShell script that would be able to retrieve the top 20 processes running on the PC at the time. I then incorporated this into my python code to save the resulting output of that command into a .txt file
 * Since one data pull gets both of the above at pretty much the exact same time, I simply named the resulting .json file and the .txt file with the timestamp when the reading took place (predetermined)
-* For more individual documentation on specific lines of code, please see below:
 
-```
-# Import necessary libraries
-import sys
-import os
-import requests
-import json
-import time
-from pprint import pprint as pp
-from subprocess import check_output
-
-# sys.argv[1] will be the name for which all the pulled data will be stored
-dirname = "./dataFiles/" + sys.argv[1]
-if not os.path.exists(dirname):
-        os.mkdir(dirname)
-else:
-        print("Directory name already exists, pick a new one please")
-        sys.exit(1)
-
-# Server where data on hardware is transferred to
-URL = "http://192.168.1.18:8085/data.json"
-
-readingPeriod = int(input('How long should this collection process be? (in minutes): '))
-
-# Sets the total time of reading to be x minutes (x times 60 seconds)
-t_end = time.time() + 60 * readingPeriod
-while time.time() < t_end:
-        timeStamp = time.strftime('%Y-%m-%d-%H:%M:%S')
-
-        # Stores data from the above url in a .json format
-        r = requests.get(url = URL)
-        data = r.json()
-        with open(dirname + "/" + timeStamp + '.json', 'w') as f:
-                json.dump(data, f)
-
-        # Collect top 20 processes by CPU usage
-        with open(dirname + "/" + timeStamp + '.txt', 'w') as f:
-                p = check_output(["powershell.exe", "ps | sort -desc cpu | select -first 20; exit"]).decode("utf-8")
-                f.write(p)
-                g = check_output(["powershell.exe", "exit"])
-        pp("Collected a data file")
-        time.sleep(10)
-```
 # Step 2 - parseData.py
 Step two requires that we parse the data and put it into a .csv file to make it graphable (viewable)
 * The user will first have to specify the name of the .csv file to be created, and then the directory where the data is stored. For example, the call `python3 parseData.py table1 sample1` will tell the program to make a .csv file named table1 to pull data from the directory sample1
