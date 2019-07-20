@@ -7,7 +7,7 @@ The project is broken down into three distinct steps:
 * Step 2 - Process and parse the raw data obtained in Step 1 and record the desired information into a .csv file
 * Step 3 - Present the data obtained in Step 2 in a visual format
 
-This project was developed in a Ubuntu 18.04 under Windows 10 WSL (Windows Subsystem for Linux), since it is possible to write code in a linux enviroment yet still run PowerShell commands.
+This project was developed in Ubuntu 18.04 under Windows 10 WSL (Windows Subsystem for Linux), since it is possible to write code in a linux enviroment yet still run PowerShell commands.
 
 # Step One - getData.py 
 Step one requires that we get the PC performance data, which contains two parts: the hardware statistics, and the top running processes on the system.
@@ -39,14 +39,16 @@ Step 3 takes the .csv file created above and creates a graph of a selected field
 * The user will first have to specify the name of the .csv file that will be modelled into a graph. For example, the call `python3 graphData.py table1` will graph the .csv file named table1
 * The user will then be prompted to this display, asking them to type in a number to select what they would like to see:
 
-`The 3 Avalialbe items to view are:
-1: CPU Core Usage
-2: RAM (Used Memmory)
-3: GPU Temperature
+The 3 Avalialbe items to view are:
+ 1: CPU Core Usage
+ 2: RAM (Used Memmory)
+ 3: GPU Temperature
 Enter the number of the option you want to run:
-`
+
+* The top running process at each time interval will be displayed with the time interval in question on the x-axis. The graph will look something like this:
+![Example Graph](exampleGraph.png)
  
-* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display when using plt.show()_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
+* _Originally, the program was designed to show the graph as a popup using the command plotmatlib.show(). However, due to limitations from using a WSL, this command does not work._ This will work, however, on a pure Windows system or MacOS, but for ease of use, the above process was chosen instead
 
 
 # Additional Information
