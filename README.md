@@ -35,7 +35,19 @@ Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
 2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
 
 # Step 3 - graphData.py
-* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
+Step 3 takes the .csv file created above and creates a graph of a selected field with respect to time
+* The user will first have to specify the name of the .csv file that will be modelled into a graph. For example, the call `python3 graphData.py table1` will graph the .csv file named table1
+* The user will then be prompted to this display, asking them to type in a number to select what they would like to see:
+
+`The 3 Avalialbe items to view are:
+1: CPU Core Usage
+2: RAM (Used Memmory)
+3: GPU Temperature
+Enter the number of the option you want to run:
+`
+ 
+* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display when using plt.show()_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
+
 
 # Additional Information
 * This code was originally made to run off of my desktop (gaming) computer. If you would like to run this for yourself, then you will have to change the IP address where applicable
