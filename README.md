@@ -1,13 +1,13 @@
 # SysPerfAnalysis
-Python Program that analyzes CPU usage, temperature, and the top-running processes at any given time on the computer.
+Python Program that analyzes CPU usage, temperature, and the top-running processes at any given time on the computer. I wrote this code in order to test the full capabilities of my brand new gaming pc I built during the summer (brand new gpu, liquid cooling, etc.), and would like to periodically check the state of my PC while playing certain graphically-demanding videogames.
 
 # Three Step Process
-We will require three steps to make this idea cohesive:
-* Obtain the data (through python packages / implementations)
-* Record the data (write into either a .json or .csv file)
-* Perform data analysis of system performance (Visual representation, another python package)
+The project is broken down into three distinct steps:
+* Step 1 - Periodically obtain the hardware performance and process statistics, then record them into files
+* Step 2 - Process and parse the raw data obtained in Step 1 and record the desired information into a .csv file
+* Step 3 - Present the data obtained in Step 2 in a visual format
 
-Each one of these steps is a lot, but these are the main things to accomplish in order to make this process work. This will, as of now, also be done on a Windows 10 computer using the Ubuntu 18.04 virtual machine. 
+This project was developed in a Ubuntu 18.04 under Windows 10 WSL (Windows Subsystem for Linux), since it is possible to write code in a linux enviroment yet still run PowerShell commands.
 
 # Step One - getData.py 
 Step one requires that we get the PC performance data, which contains two parts: the hardware statistics, and the top running processes on the system.
@@ -15,6 +15,8 @@ Step one requires that we get the PC performance data, which contains two parts:
 * We first obtained hardware data from Open Hardware Monitor ([https://openhardwaremonitor.org/]). This software will run on the computer I wanted to test, and makes the hardware statistics available through a rest API. For my computer, the statistics are exposed at `http://192.168.1.18:8085/data.json`. The code periodically does HTTP GET and stores the .json file.
 * To get top processes running (measured by CPU usage), I first wrote and tested out a PowerShell script that would be able to retrieve the top 20 processes running on the PC at the time. I then incorporated this into my python code to save the resulting output of that command into a .txt file
 * Since one data pull gets both of the above at pretty much the exact same time, I simply named the resulting .json file and the .txt file with the timestamp when the reading took place (predetermined)
+
+Note - I originally began this process of collection with psutil, a python library used for retrieving hardware data from the computer. This was eventually abandoned due to the fact that many of the modules I wanted to use were unavailable for my computer (limited linux and no Windows support being one of the bigger reasons why this was scrapped)
 
 # Step 2 - parseData.py
 Step two requires that we parse the data and put it into a .csv file to make it graphable (viewable)
@@ -32,17 +34,15 @@ Time|CPU Core Usage|RAM Used Memmory|GPU Temperature|Top Running Process
 |---|---|---|---|---|
 2019-07-15-22:10:11|8.016666666666667|25.9|43.0|Steam
 
+# Step 3 - graphData.py
+* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
 
-# Notes
-* I originally began this process of collection with psutil, a python library used for retrieving hardware data from the computer. This was eventually abandoned due to the fact that many of the modules I wanted to use were unavailable for my computer (limited linux and no Windows support being one of the bigger reasons why this was scrapped)
+# Additional Information
 * This code was originally made to run off of my desktop (gaming) computer. If you would like to run this for yourself, then you will have to change the IP address where applicable
 * For ease of testing and parsing, I made specific folders /dataFiles/ and /results/ to stash subdirectories of the pulled data in the former and the .csv files with the processed data in the latter. They are available for import but can be changed at the user's leisure
-============================================================================
-* _The graph will not work on Ubuntu based systems. The code will compile, but the resulting graph will not display_. You can run it on MacOS or through Windows PowerShell (for windows, I moved everything to the desktop and rewrote some of the paths in the original code. I would not recomend this to be a permanent setup unless for testing). MacOS seems to work fine without any real problems.
-* Alternatively, this link [https://www.pyimagesearch.com/2015/08/24/resolved-matplotlib-figures-not-showing-up-or-displaying/] will show you how to change certain things in Ubuntu to make it work. I did not do it because I'm new to linux as a whole, but for more experienced people this will work for them
-============================================================================
 * To gain privileges to run Powershell commands from Linux vm: `Set-ExecutionPolicy RemoteSigned` (You might have to do this if this is your first time running the code. Run PowerShell x86 as administrator in order to execute this)
 * The command line `ps | sort -desc cpu | select -first 20` is the code I used to access the top 20 processes on my computer. This can be modified, although be careful as this is not really a part of the rest of the Python code
+
 
 # Future Plans (as of 7/19/19)
 * Make it all encompassing (one program to do all three steps)
