@@ -53,7 +53,7 @@ plt.xlim(0, myTime)
 plt.xticks(x, x_labels)
 plt.xticks(rotation = 45)
 plt.plot(x,y, label='Loaded over time')
-plt.xlabel('Time (seconds)')
+plt.xlabel('Time (Minutes)')
 if (pickedOption == 1):
     plt.ylabel('Usage')
 if (pickedOption == 2):
