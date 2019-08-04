@@ -1,6 +1,8 @@
 # SysPerfAnalysis
 Python Program that analyzes CPU usage, temperature, and the top-running processes at any given time on the computer. I wrote this code in order to test the full capabilities of my brand new gaming pc I built during the summer (brand new gpu, liquid cooling, etc.), and would like to periodically check the state of my PC while playing certain graphically-demanding videogames.
 
+![Computer](Computer.jpg)
+
 # Three Step Process
 The project is broken down into three distinct steps:
 * Step 1 - Periodically obtain the hardware performance and process statistics, then record them into files
