@@ -3,7 +3,7 @@ Python Program that analyzes CPU usage, GPU Temperature, RAM usage, and the top-
 
 The idea behind this project was to test the limits of my new gaming PC that I had built this summer (2019). In most (if not all) of today's videogames, the manufacturer allows the user to adjust certain options or effects, either to improve the overall experience or lighten the load on the user's gaming device. For example, turning the graphics setting on Ultra will have a much higher load on the GPU than if the game was set to the Low graphics setting. Before the project, I had played games on it at the highest settings, but was concerned at how my computer was handling the load and if it would be better to drop to lower settings in order to let my computer handle a less intensive task. That is what inspired me to create working code that would record and later display data on CPU core usage, GPU temperature, and RAM usage in order to see how my computer would perform when forced to play different games operating under different settings. 
 
-![Computer](Computer.jpg)
+![Computer](Computer.png)
 
 # Three Step Process
 The project is broken down into three distinct steps:
